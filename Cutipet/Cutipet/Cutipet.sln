@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cutipets", "cutipets", "{7F717B2C-A7E1-D9A7-8939-C59C792FCCE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet-auth", "dotnet-auth", "{659864BD-ED3A-FE03-8AE8-8096D57CCA27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutipetsAuth", "cutipets\dotnet-auth\CutipetsAuth\CutipetsAuth.csproj", "{2D87C2D5-E7D7-FD0B-D008-35258097E88A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D87C2D5-E7D7-FD0B-D008-35258097E88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D87C2D5-E7D7-FD0B-D008-35258097E88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D87C2D5-E7D7-FD0B-D008-35258097E88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D87C2D5-E7D7-FD0B-D008-35258097E88A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{659864BD-ED3A-FE03-8AE8-8096D57CCA27} = {7F717B2C-A7E1-D9A7-8939-C59C792FCCE5}
+		{2D87C2D5-E7D7-FD0B-D008-35258097E88A} = {659864BD-ED3A-FE03-8AE8-8096D57CCA27}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AD10D4C-8589-48EF-BEBE-6C676D59A4AD}
+	EndGlobalSection
+EndGlobal
