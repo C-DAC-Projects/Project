@@ -1,8 +1,8 @@
+// src/pages/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './Auth.css';
-import logo from '../../assets/logo.png';
+import { useNavigate, Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -15,16 +15,17 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log('Sending:', formData);
       const res = await axios.post('http://localhost:5292/api/Auth/login', formData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' }
       });
 
       const token = res.data.token;
+      const username = res.data.username || res.data.name || formData.email.split('@')[0]; // fallback to email prefix
+
       if (token) {
         localStorage.setItem('token', token);
+        localStorage.setItem("user", JSON.stringify({ name: username, email: formData.email }));
+
         alert('Login successful!');
         navigate('/dashboard');
       } else {
@@ -66,8 +67,15 @@ const Login = () => {
           </div>
           <button type="submit" className="btn btn-primary w-100">Login</button>
         </form>
+
+        <div className="text-center mt-2">
+          <Link to="/forgot-password" className="text-decoration-none">
+            Forgot Password?
+          </Link>
+        </div>
+
         <div className="text-center mt-3">
-          <p>Not registered yet? <a href="/register">Register here</a></p>
+          <p>Not registered yet? <Link to="/register">Register here</Link></p>
         </div>
       </div>
     </div>

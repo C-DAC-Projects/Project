@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LNjTHS7JLeI=",
+  "dgSpecHash": "z7d/zYuSWTM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Sagar\\Desktop\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
+  "projectFilePath": "C:\\Users\\Sagar\\Desktop\\Project\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sagar\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Sagar\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

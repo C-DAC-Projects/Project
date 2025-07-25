@@ -1,25 +1,53 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
-import Dashboard from './components/Dashboard';
-import PetListing from './components/Pets/PetListing'; // ✅ ADD THIS
-import SellPetForm from "./components/Pets/SellPetForm"; // we'll create this next
+// src/App.js
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-function App() {
+import Navbar from './components/Navbar';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Footer from './components/Footer';
+
+const AppRoutes = ({ isLoggedIn, username, handleLogout }) => {
+  const location = useLocation();
+  const showFooter = location.pathname === "/" || location.pathname === "/dashboard";
+
   return (
-    <Router>
+    <>
+      <Navbar isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/pets" element={<PetListing />} /> {/* ✅ PET LISTING */}
-        <Route path="/sell-pet" element={<SellPetForm />} />
-
-
       </Routes>
+      {showFooter && <Footer />}
+    </>
+  );
+};
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.name) {
+      setIsLoggedIn(true);
+      setUsername(user.name);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    setUsername("");
+    window.location.href = "/"; // Optional: redirect to homepage after logout
+  };
+
+  return (
+    <Router>
+      <AppRoutes isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} />
     </Router>
   );
 }

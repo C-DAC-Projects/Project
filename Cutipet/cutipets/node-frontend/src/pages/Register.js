@@ -1,8 +1,7 @@
 // src/components/Auth/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Auth.css';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo.png';
 
 
 const Register = () => {

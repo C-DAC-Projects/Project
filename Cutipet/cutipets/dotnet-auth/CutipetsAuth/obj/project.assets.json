@@ -4519,11 +4519,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sagar\\Desktop\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
+      "projectUniqueName": "C:\\Users\\Sagar\\Desktop\\Project\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
       "projectName": "CutipetsAuth",
-      "projectPath": "C:\\Users\\Sagar\\Desktop\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
+      "projectPath": "C:\\Users\\Sagar\\Desktop\\Project\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\CutipetsAuth.csproj",
       "packagesPath": "C:\\Users\\Sagar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sagar\\Desktop\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\obj\\",
+      "outputPath": "C:\\Users\\Sagar\\Desktop\\Project\\Cutipet\\cutipets\\dotnet-auth\\CutipetsAuth\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
