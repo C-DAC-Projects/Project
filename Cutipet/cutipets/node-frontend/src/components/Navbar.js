@@ -1,54 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useAuth } from "../Context/AuthContext";
+import ProtectedLink from "./ProtectedLink"; // ✅ adjust the path if needed
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-
-  // Sync login state from localStorage
-  const syncLoginState = () => {
-    const token = localStorage.getItem("token");
-    const userData = JSON.parse(localStorage.getItem("user"));
-    if (token && userData?.name) {
-      setIsLoggedIn(true);
-      setUsername(userData.name);
-    } else {
-      setIsLoggedIn(false);
-      setUsername("");
-    }
-  };
-
-  useEffect(() => {
-    syncLoginState();
-    window.addEventListener("storage", syncLoginState); // listen for other tab login/logout
-
-    return () => {
-      window.removeEventListener("storage", syncLoginState);
-    };
-  }, []);
+  const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    setUsername("");
+    logout();
     navigate("/login");
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
       <div className="container-fluid px-4">
-        {/* Left: Logo */}
+        {/* Logo */}
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img src={logo} alt="Cutipets Logo" width="40" height="40" className="me-2" />
           <span className="fw-bold text-primary fs-4">Cutipets</span>
         </Link>
 
-        {/* Mobile Toggle */}
+        {/* Toggle button for mobile */}
         <button
           className="navbar-toggler"
           type="button"
@@ -61,39 +37,56 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Center + Right */}
+        {/* Nav Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          {/* Center Links */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><Link className="nav-link" to="/pets">Pets</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/products">Products</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/veterinary">Veterinary</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/adopt">Adopt</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/help">Help</Link></li>
+            <li className="nav-item">
+              <ProtectedLink className="nav-link" to="/pets">Pets</ProtectedLink>
+            </li>
+            <li className="nav-item">
+              <ProtectedLink className="nav-link" to="/products">Products</ProtectedLink>
+            </li>
+            <li className="nav-item">
+              <ProtectedLink className="nav-link" to="/veterinary">Veterinary</ProtectedLink>
+            </li>
+            <li className="nav-item">
+              <ProtectedLink className="nav-link" to="/adopt">Adopt</ProtectedLink>
+            </li>
+            <li className="nav-item">
+              <ProtectedLink className="nav-link" to="/help">Help</ProtectedLink>
+            </li>
           </ul>
 
-          {/* Search Bar */}
-          <form className="d-flex me-3">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search pets or products..."
-              aria-label="Search"
-            />
-          </form>
+          {/* Right section */}
+          <div className="d-flex align-items-center gap-2">
+            {/* Search bar */}
+            <form className="d-flex me-3">
+              <input
+                className="form-control"
+                type="search"
+                placeholder="Search pets or products..."
+                aria-label="Search"
+              />
+            </form>
 
-          {/* User Auth Buttons */}
-          {isLoggedIn ? (
-            <div className="d-flex align-items-center">
-              <i className="bi bi-person-circle fs-4 text-primary me-2"></i>
-              <span className="me-3 fw-medium">{username}</span>
-              <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <Link to="/login" className="btn btn-outline-primary">Login</Link>
-          )}
+            {/* Admin Link */}
+            <Link to="/admin-login" className="btn btn-outline-secondary btn-sm me-2">
+              Admin
+            </Link>
+
+            {/* Auth buttons or user info */}
+            {!currentUser ? (
+              <Link to="/login" className="btn btn-outline-primary btn-sm">Login</Link>
+            ) : (
+              <div className="d-flex align-items-center gap-2">
+                <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+                  Logout
+                </button>
+                <i className="bi bi-person-circle fs-4 text-primary"></i>
+                <span className="fw-medium">{currentUser.name}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

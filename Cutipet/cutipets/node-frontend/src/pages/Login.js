@@ -1,12 +1,13 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { useAuth } from '../Context/AuthContext'; // ✅
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ use login function from context
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,11 +21,11 @@ const Login = () => {
       });
 
       const token = res.data.token;
-      const username = res.data.username || res.data.name || formData.email.split('@')[0]; // fallback to email prefix
+      const username = res.data.username || res.data.name || formData.email.split('@')[0];
 
       if (token) {
-        localStorage.setItem('token', token);
-        localStorage.setItem("user", JSON.stringify({ name: username, email: formData.email }));
+        const userData = { name: username, email: formData.email };
+        login(userData, token); // ✅ update context and localStorage
 
         alert('Login successful!');
         navigate('/dashboard');
