@@ -7,6 +7,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Footer from './components/Footer';
+import AdminLogin from './pages/AdminLogin'; // ✅ Add this line
+import AdminDashboard from './pages/AdminDashboard';
+
 
 const AppRoutes = ({ isLoggedIn, username, handleLogout }) => {
   const location = useLocation();
@@ -20,6 +23,8 @@ const AppRoutes = ({ isLoggedIn, username, handleLogout }) => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
       {showFooter && <Footer />}
     </>

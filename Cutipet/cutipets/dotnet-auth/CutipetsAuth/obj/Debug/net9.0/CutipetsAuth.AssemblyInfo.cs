@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CutipetsAuth")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7338c20d434552086761ce7856ddd9976b38d80")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27474ce4cb9e2a39d5a1c147ee099666504b7814")]
 [assembly: System.Reflection.AssemblyProductAttribute("CutipetsAuth")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CutipetsAuth")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
