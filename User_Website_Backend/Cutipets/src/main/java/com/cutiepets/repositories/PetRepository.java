@@ -9,17 +9,21 @@ import java.util.List;
 
 public interface PetRepository extends JpaRepository<Pet, Integer> {
 
-    // 1. Get all pets where available = true (i.e., approved)
+    // 1. Get all pets where available = true and fetch images
+    @Query("SELECT DISTINCT p FROM Pet p LEFT JOIN FETCH p.images WHERE p.available = true")
     List<Pet> findByAvailableTrue();
 
-    // 2. Get pets by pet type
-    List<Pet> findByBreed_PetType_IdAndAvailableTrue(Integer typeId);
+    // 2. Get pets by pet type and fetch images
+    @Query("SELECT DISTINCT p FROM Pet p LEFT JOIN FETCH p.images WHERE p.breed.petType.id = :typeId AND p.available = true")
+    List<Pet> findByBreed_PetType_IdAndAvailableTrue(@Param("typeId") Integer typeId);
 
-    // 3. Get pets by pet type and breed
-    List<Pet> findByBreed_PetType_IdAndBreed_IdAndAvailableTrue(Integer typeId, Integer breedId);
+    // 3. Get pets by pet type and breed and fetch images
+    @Query("SELECT DISTINCT p FROM Pet p LEFT JOIN FETCH p.images WHERE p.breed.petType.id = :typeId AND p.breed.id = :breedId AND p.available = true")
+    List<Pet> findByBreed_PetType_IdAndBreed_IdAndAvailableTrue(@Param("typeId") Integer typeId,
+                                                                @Param("breedId") Integer breedId);
 
-    // 4. Filter pets by multiple optional conditions
-    @Query("SELECT p FROM Pet p WHERE " +
+    // 4. Filter pets by multiple optional conditions and fetch images
+    @Query("SELECT DISTINCT p FROM Pet p LEFT JOIN FETCH p.images WHERE " +
            "(:typeId IS NULL OR p.breed.petType.id = :typeId) AND " +
            "(:breedId IS NULL OR p.breed.id = :breedId) AND " +
            "(:minAge IS NULL OR p.age >= :minAge) AND " +
