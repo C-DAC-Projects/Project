@@ -1,8 +1,11 @@
 package com.cutiepets.controllers;
 
+import com.cutiepets.petdtos.BreedDTO;
 import com.cutiepets.petdtos.PetDTO;
+import com.cutiepets.petdtos.PetTypeDTO;
+import com.cutiepets.services.BreedService;
 import com.cutiepets.services.PetService;
-
+import com.cutiepets.services.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +18,25 @@ public class PetController {
     @Autowired
     private PetService petService;
 
+    @Autowired
+    private PetTypeService petTypeService;
+
+    @Autowired
+    private BreedService breedService;
+
     @GetMapping
     public List<PetDTO> getAllAvailablePets() {
         return petService.getAllAvailablePets();
+    }
+
+    @GetMapping("/types")
+    public List<PetTypeDTO> getAllPetTypes() {
+        return petTypeService.getAllPetTypes();
+    }
+
+    @GetMapping("/breeds")
+    public List<BreedDTO> getAllBreeds(@RequestParam(required = false) Integer typeId) {
+        return breedService.getBreedsByPetType(typeId); // Or all breeds if null
     }
 
     @GetMapping("/type/{typeId}")

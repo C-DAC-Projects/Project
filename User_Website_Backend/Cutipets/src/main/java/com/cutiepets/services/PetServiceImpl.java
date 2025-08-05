@@ -68,10 +68,18 @@ public class PetServiceImpl implements PetService {
         dto.setBreedName(pet.getBreed().getName());
         dto.setPetTypeName(pet.getBreed().getPetType().getName());
         dto.setImageUrls(
-                pet.getImages().stream()
-                        .map(image -> image.getImageUrl())
-                        .collect(Collectors.toList())
-        );
+        	    pet.getImages().stream()
+        	        .map(image -> {
+        	            String path = image.getImageUrl();
+        	            // Remove any "D:/" or full path prefix if mistakenly stored
+        	            if (path.contains("Resources/Pets/")) {
+        	                path = path.substring(path.indexOf("Resources/Pets/") + "Resources/Pets/".length());
+        	            }
+        	            return "/images/view/" + path.replace("\\", "/");
+        	        })
+        	        .collect(Collectors.toList())
+        	);
+
         return dto;
     }
 }
