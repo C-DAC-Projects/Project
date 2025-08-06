@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,25 +34,9 @@ public class Pet {
     @JoinColumn(name = "breed_id")
     private Breed breed;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private User seller;
-
-    @Enumerated(EnumType.STRING)
-    private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
-
-    @Column(columnDefinition = "TEXT")
-    private String adminComments;
-
     private LocalDateTime submittedAt;
 
-    public enum ApprovalStatus {
-        PENDING, APPROVED, REJECTED
-    }
-    
     public boolean isAvailable() {
         return Boolean.TRUE.equals(available);
     }
-
 }
-
