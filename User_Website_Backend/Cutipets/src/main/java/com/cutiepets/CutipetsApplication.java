@@ -13,7 +13,6 @@ public class CutipetsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CutipetsApplication.class, args);
 	}
-
 	
 	@Bean
 	ModelMapper modelMapper() {
