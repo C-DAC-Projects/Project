@@ -1,6 +1,5 @@
 package com.cutiepets.pojos;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,12 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String imageUrl;
-
     private Boolean isPrimary = false;
 
     @CreationTimestamp
@@ -28,4 +27,3 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 }
-

@@ -37,6 +37,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDTO> getProductsByCategory(Integer categoryId) {
+        return productRepository.findByCategory_IdAndAvailableTrue(categoryId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProductDTO> getProductsByCategoryAndPetType(Integer categoryId, Integer petTypeId) {
         return productRepository.findByCategory_IdAndPetType_IdAndAvailableTrue(categoryId, petTypeId)
                 .stream()
@@ -46,13 +54,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> filterProducts(Integer petTypeId, Integer categoryId, Double minPrice, Double maxPrice) {
-        return productRepository.findAll()
+        return productRepository.filterProducts(categoryId, petTypeId, minPrice, maxPrice)
                 .stream()
-                .filter(p -> Boolean.TRUE.equals(p.getAvailable()))
-                .filter(p -> categoryId == null || (p.getCategory() != null && categoryId.equals(p.getCategory().getId())))
-                .filter(p -> petTypeId == null || (p.getPetType() != null && petTypeId.equals(p.getPetType().getId())))
-                .filter(p -> minPrice == null || p.getPrice() >= minPrice)
-                .filter(p -> maxPrice == null || p.getPrice() <= maxPrice)
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -62,20 +65,24 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .filter(p -> Boolean.TRUE.equals(p.getAvailable()))
                 .orElseThrow(() -> new RuntimeException("Available product not found with id: " + id));
-
         return convertToDTO(product);
     }
 
-    // Helper method to convert Product → ProductDTO using ModelMapper + manual enhancements
+    // ✅ Convert Product to ProductDTO with image URLs only
     private ProductDTO convertToDTO(Product product) {
         ProductDTO dto = modelMapper.map(product, ProductDTO.class);
+
         dto.setCategoryName(product.getCategory() != null ? product.getCategory().getName() : null);
         dto.setPetTypeName(product.getPetType() != null ? product.getPetType().getName() : null);
+
         dto.setImageUrls(
-                product.getImages().stream()
-                        .map(image -> image.getImageUrl())
-                        .collect(Collectors.toList())
+            product.getImages() != null
+                ? product.getImages().stream()
+                    .map(img -> img.getImageUrl())
+                    .collect(Collectors.toList())
+                : List.of()
         );
+
         return dto;
     }
 }
