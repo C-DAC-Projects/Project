@@ -1,14 +1,15 @@
 package com.cutiepets.services;
 
-import java.util.List;
-
 import com.cutiepets.orderdtos.OrderRequestDTO;
 import com.cutiepets.orderdtos.OrderResponseDTO;
 
+import java.util.List;
+
 public interface OrderService {
-    OrderResponseDTO placeOrder(OrderRequestDTO orderRequest);
-    OrderResponseDTO getOrderById(Integer id);
     List<OrderResponseDTO> getAllOrders();
-    List<OrderResponseDTO> getOrdersByUser(Integer userId);
-    void cancelOrder(Integer id);
+    OrderResponseDTO getOrderById(Long id);
+    List<OrderResponseDTO> getOrdersByUser(Long userId);
+    OrderResponseDTO updateOrder(Long orderId, OrderRequestDTO dto);
+    void deleteOrder(Long orderId);
+    OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO);
 }

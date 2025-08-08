@@ -1,11 +1,14 @@
 package com.cutiepets.repositories;
 
-import java.util.List;
-
+import com.cutiepets.pojos.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cutiepets.pojos.Order;
+import java.util.List;
+import java.util.Optional;
 
-public interface OrderRepository extends JpaRepository<Order, Integer> {
-    List<Order> findByUserId(Integer userId);
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findAll();
+    Optional<Order> findById(Long id);
+    List<Order> findByCustomerId(Long userId);
 }
+

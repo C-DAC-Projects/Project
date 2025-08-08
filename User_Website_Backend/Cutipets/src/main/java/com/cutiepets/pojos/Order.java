@@ -2,44 +2,39 @@ package com.cutiepets.pojos;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order {
+
+    public enum Status { PENDING, DELIVERED, CANCELLED, PLACED }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDateTime createdAt;
 
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private LocalDateTime timestamp;
+
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User customer;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private PetOrder petOrder;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PetOrder> petOrders = new HashSet<>();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<ProductOrder> productOrders;
-
-    public enum Status {
-        PENDING, COMPLETED, CANCELLED
-    }
-
-	public Object getOrderDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductOrder> productOrders = new HashSet<>();
 }

@@ -14,7 +14,7 @@ public class PetOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
