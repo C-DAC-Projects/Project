@@ -10,14 +10,41 @@ import care31 from './care31.png'
 import food31 from './food31.png'
 import food21 from './food21.png'
 import food11 from './food11.png'
+import pet1 from './pet1.jpg'
+import pet2 from './pet2.jpeg'
+import refresh_icon from './refresh_icon.svg'
+import remove_icon from './remove_icon.svg'
+import arrow_right_icon_colored from './arrow_right_icon_colored.svg'
+
 
 export const assets = {
     Logo,
     star_icon,
     star_dull_icon,
+    refresh_icon,
+    remove_icon,
+    arrow_right_icon_colored
 
 
 }
+
+export const pets = [
+  {
+    _id: "101",
+    text: "Labrador",
+    path: "Pets",
+    image: pet1,
+
+  },
+    {
+    _id: "102",
+    text: "Rotweiler",
+    path: "Pets",
+    image: pet2,
+
+  },
+
+]
 
 export const categories = [
     {
