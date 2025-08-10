@@ -40,7 +40,7 @@ export default function Slider() {
   }, [currentSlide]);
 
   return (
-    <div className="flex items-center mt-10">
+    <div className="flex items-center mt-10 md:ml-80">
       <button
         onClick={prevSlide}
         className="md:p-2 p-1 bg-black/30 md:mr-6 mr-2 rounded-full hover:bg-black/50"

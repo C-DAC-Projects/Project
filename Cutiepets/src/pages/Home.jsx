@@ -7,6 +7,7 @@ import NewsLetter from '../components/NewsLetter'
 import Food from '../components/Food'
 import Footer from '../components/Footer'
 import CareProducts from '../components/CareProducts'
+import Pets from '../components/Pets'
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Header />
       <Slider />
       <Categories />
+      <Pets />
       <Care />
       <Food />
       <CareProducts />

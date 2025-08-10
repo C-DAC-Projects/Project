@@ -5,7 +5,7 @@ import { useAppContext } from '../context/AppContext'
 
 const Categories = () => {
 
-    const {navigate} = useAppContext
+    const {navigate} = useAppContext();
   return (
     <div className='mt-10 ml-4'>
         <p className='text-2xl md:text-3xl font-medium'>Categories</p>
